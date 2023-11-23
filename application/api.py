@@ -23,7 +23,7 @@ from typing import List, Optional
 import random
 from datetime import time, datetime, timedelta
 
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = "Insert OpenAI Key"
 date_format = "%Y-%m-%d"
 class FlightsAPI(Resource):
     #function to get iata code for the departure and arrival cities
