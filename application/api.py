@@ -23,7 +23,7 @@ from typing import List, Optional
 import random
 from datetime import time, datetime, timedelta
 
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = "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"
 date_format = "%Y-%m-%d"
 class FlightsAPI(Resource):
     #function to get iata code for the departure and arrival cities
@@ -76,7 +76,7 @@ class FlightsAPI(Resource):
 
     def get(self,departure_city,arrival_city,departure_date,arrival_date,number_of_adults,number_of_children,cabin_class):
         response = None
-        '''flight_api_key = LocalDevelopmentConfig.FLIGHT_API_KEY
+        flight_api_key = LocalDevelopmentConfig.FLIGHT_API_KEY
         departure_airport_code, arrival_airport_code = self.map_to_iata_code(departure_city,arrival_city)
         get_flights_endpoint = 'https://api.flightapi.io/roundtrip'
         get_flights_endpoint+=f'/{flight_api_key}/{departure_airport_code}/{arrival_airport_code}/{departure_date}/{arrival_date}/{number_of_adults}/{number_of_children}/0/{cabin_class}/INR'
@@ -133,45 +133,45 @@ class FlightsAPI(Resource):
                             break
                 flights.append({"flightDetails":flight_deets, "totalAmount":fares[count]})
                 count+=1
-        except:'''
-        departure_airport_code, arrival_airport_code = self.map_to_iata_code(departure_city,arrival_city)
-        flights = []
-        for i in range(5):
-            temp = {}
-            first_trip = {}
-            second_trip = {}
+        except:
+            departure_airport_code, arrival_airport_code = self.map_to_iata_code(departure_city,arrival_city)
+            flights = []
+            for i in range(5):
+                temp = {}
+                first_trip = {}
+                second_trip = {}
 
-            first_trip['deptAirportCode'] = departure_airport_code
-            first_trip['arrivalAirportCode'] = arrival_airport_code
-            first_trip['departureAirportName'] = self.map_to_airport(departure_airport_code)
-            first_trip['arrivalAirportName'] = self.map_to_airport(arrival_airport_code)
-            first_trip["deptTime"] = departure_date+"T12:55:00.000+05:30"
-            first_trip["arrivalTime"] = departure_date+"T19:25:00.000+05:30"
-            first_trip["duration"] = "06h 30m"
-            first_trip["airlineCodes"] = [self.get_airlines_code(departure_city)]
-            first_trip["airlineNames"] = [self.map_to_airline(first_trip['airlineCodes'][0])]
-            first_trip['nonStop'] = "true"
-            first_trip["stopoverAirportCodes"] = []
-            first_trip["stopoverAirports"] = []
-                
-                
-            second_trip['deptAirportCode'] = arrival_airport_code
-            second_trip['arrivalAirportCode'] = departure_airport_code
-            second_trip['departureAirportName'] = self.map_to_airport(arrival_airport_code)
-            second_trip['arrivalAirportName'] = self.map_to_airport(departure_airport_code)
-            second_trip["deptTime"] = arrival_date+"T12:55:00.000+05:30"
-            second_trip["arrivalTime"] = arrival_date+"T19:25:00.000+05:30"
-            second_trip["duration"] = "06h 30m"
-            second_trip["airlineCodes"] = [self.get_airlines_code(arrival_city)]
-            second_trip["airlineNames"] = [self.map_to_airline(second_trip['airlineCodes'][0])]
-            second_trip['nonStop'] = "true"
-            second_trip["stopoverAirportCodes"] = []
-            second_trip["stopoverAirports"] = []
+                first_trip['deptAirportCode'] = departure_airport_code
+                first_trip['arrivalAirportCode'] = arrival_airport_code
+                first_trip['departureAirportName'] = self.map_to_airport(departure_airport_code)
+                first_trip['arrivalAirportName'] = self.map_to_airport(arrival_airport_code)
+                first_trip["deptTime"] = departure_date+"T12:55:00.000+05:30"
+                first_trip["arrivalTime"] = departure_date+"T19:25:00.000+05:30"
+                first_trip["duration"] = "06h 30m"
+                first_trip["airlineCodes"] = [self.get_airlines_code(departure_city)]
+                first_trip["airlineNames"] = [self.map_to_airline(first_trip['airlineCodes'][0])]
+                first_trip['nonStop'] = "true"
+                first_trip["stopoverAirportCodes"] = []
+                first_trip["stopoverAirports"] = []
+                    
+                    
+                second_trip['deptAirportCode'] = arrival_airport_code
+                second_trip['arrivalAirportCode'] = departure_airport_code
+                second_trip['departureAirportName'] = self.map_to_airport(arrival_airport_code)
+                second_trip['arrivalAirportName'] = self.map_to_airport(departure_airport_code)
+                second_trip["deptTime"] = arrival_date+"T12:55:00.000+05:30"
+                second_trip["arrivalTime"] = arrival_date+"T19:25:00.000+05:30"
+                second_trip["duration"] = "06h 30m"
+                second_trip["airlineCodes"] = [self.get_airlines_code(arrival_city)]
+                second_trip["airlineNames"] = [self.map_to_airline(second_trip['airlineCodes'][0])]
+                second_trip['nonStop'] = "true"
+                second_trip["stopoverAirportCodes"] = []
+                second_trip["stopoverAirports"] = []
 
-            flight_details = [first_trip, second_trip]
-            temp["flightDetails"] = flight_details
-            temp["totalAmount"] = random.randint(4500, 13000) * (int(number_of_adults) + int(number_of_children))
-            flights.append(temp)
+                flight_details = [first_trip, second_trip]
+                temp["flightDetails"] = flight_details
+                temp["totalAmount"] = random.randint(4500, 13000) * (int(number_of_adults) + int(number_of_children))
+                flights.append(temp)
         print(flights)
 
         return flights
@@ -275,6 +275,7 @@ class BusAPI(Resource):
             temp["bus_details"] = bus_details
             temp["total_amount"] = random.randint(900, 2000) * (int(number_of_adults) + int(number_of_children))
             buses.append(temp)
+        print(buses)
         return buses
 
 class HotelAPI(Resource):
@@ -295,6 +296,7 @@ class HotelAPI(Resource):
             hotel["totalAmount"] = random.randint(1500,2500) * (int(number_of_adults) + int(number_of_children)) * (datetime.strptime(to_date, date_format) - datetime.strptime(from_date, date_format)).days
             hotels.append(hotel)
             num+=1
+        print(hotels)
         return hotels
 
 class ResortAPI(Resource):
@@ -343,7 +345,7 @@ class ItineraryAPI(Resource):
         class Activity(BaseModel):
             activity_place: str = Field(description="the name of the exact place where the activity takes place pertaining to the mentioned city")
             activity_description: str = Field(description="a short description highlighting activity and the place")
-            activity_category: str = Field(description="the category that the activity falls under from the list of interests given by the user")
+            activity_category: str = Field(description="only one category that best describes the activity falling under the list of interests given by the user")
         class Itinerary(BaseModel):
             activities: List[Activity] = Field(description="list of activities to do in the given city")
         pydantic_parser = PydanticOutputParser(pydantic_object=Itinerary)
